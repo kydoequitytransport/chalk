@@ -114,11 +114,27 @@ test('line breaks should open and close colors with CRLF', t => {
 	t.is(chalk.grey('hello\r\nworld'), '\u{1B}[90mhello\u{1B}[39m\r\n\u{1B}[90mworld\u{1B}[39m');
 });
 
+test('line breaks should preserve styling across consecutive blank lines', t => {
+	t.is(
+		chalk.grey('hello\n\nworld'),
+		'\u{1B}[90mhello\u{1B}[39m\n\u{1B}[90m\u{1B}[39m\n\u{1B}[90mworld\u{1B}[39m',
+	);
+});
+
 test('properly convert RGB to 16 colors on basic color terminals', t => {
 	t.is(new Chalk({level: 1}).rgb(255, 0, 0)('hello'), '\u{1B}[91mhello\u{1B}[39m');
 	t.is(new Chalk({level: 1}).bgRgb(255, 0, 0)('hello'), '\u{1B}[101mhello\u{1B}[49m');
 	t.is(new Chalk({level: 1}).hex('#FF0000')('hello'), '\u{1B}[91mhello\u{1B}[39m');
 	t.is(new Chalk({level: 1}).bgHex('#FF0000')('hello'), '\u{1B}[101mhello\u{1B}[49m');
+});
+
+test('support HSL colors', t => {
+	t.is(new Chalk({level: 1}).hsl(0, 100, 50)('hello'), '\u{1B}[91mhello\u{1B}[39m');
+	t.is(new Chalk({level: 2}).hsl(120, 100, 50)('hello'), '\u{1B}[38;5;46mhello\u{1B}[39m');
+	t.is(new Chalk({level: 3}).hsl(240, 100, 50)('hello'), '\u{1B}[38;2;0;0;255mhello\u{1B}[39m');
+	t.is(new Chalk({level: 3}).bgHsl(120, 100, 50)('hello'), '\u{1B}[48;2;0;255;0mhello\u{1B}[49m');
+	t.is(new Chalk({level: 3}).underlineHsl(0, 100, 50)('hello'), '\u{1B}[58;2;255;0;0mhello\u{1B}[59m');
+	t.is(new Chalk({level: 3}).hsl(360, 100, 50)('hello'), '\u{1B}[38;2;255;0;0mhello\u{1B}[39m');
 });
 
 test('properly convert RGB to 256 colors on basic color terminals', t => {

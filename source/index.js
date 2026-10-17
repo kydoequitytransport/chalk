@@ -99,12 +99,19 @@ const createModelConverters = (model, type) => {
 		return [ansi, ansi, ansi256, hex => style.ansi16m(...ansiStyles.hexToRgb(hex))];
 	}
 
+	if (model === 'hsl') {
+		const hslToRgb = (hue, saturation, lightness) => ansiStyles.hslToRgb(hue, saturation, lightness);
+		const ansi = (hue, saturation, lightness) => style.ansi(ansiStyles.rgbToAnsi(...hslToRgb(hue, saturation, lightness)));
+		const ansi256 = (hue, saturation, lightness) => style.ansi256(ansiStyles.rgbToAnsi256(...hslToRgb(hue, saturation, lightness)));
+		return [ansi, ansi, ansi256, (hue, saturation, lightness) => style.ansi16m(...hslToRgb(hue, saturation, lightness))];
+	}
+
 	// `ansi256` is already the native form, so only the 16-color levels need converting.
 	const ansi = code => style.ansi(ansiStyles.ansi256ToAnsi(code));
 	return [ansi, ansi, style.ansi256, style.ansi256];
 };
 
-const usedModels = ['rgb', 'hex', 'ansi256'];
+const usedModels = ['rgb', 'hsl', 'hex', 'ansi256'];
 
 for (const model of usedModels) {
 	const capitalizedModel = model[0].toUpperCase() + model.slice(1);
