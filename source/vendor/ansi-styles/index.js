@@ -194,6 +194,43 @@ function assembleStyles() {
 			},
 			enumerable: false,
 		},
+		hslToRgb: {
+			value(hue, saturation, lightness) {
+				hue = ((hue % 360) + 360) % 360 / 360;
+				saturation = Math.max(0, Math.min(100, saturation)) / 100;
+				lightness = Math.max(0, Math.min(100, lightness)) / 100;
+
+				const second = lightness < 0.5
+					? lightness * (1 + saturation)
+					: lightness + saturation - lightness * saturation;
+				const first = (2 * lightness) - second;
+
+				const hueToRgb = hueOffset => {
+					hueOffset = (hueOffset + 1) % 1;
+
+					if (6 * hueOffset < 1) {
+						return first + ((second - first) * 6 * hueOffset);
+					}
+
+					if (2 * hueOffset < 1) {
+						return second;
+					}
+
+					if (3 * hueOffset < 2) {
+						return first + ((second - first) * ((2 / 3) - hueOffset) * 6);
+					}
+
+					return first;
+				};
+
+				return [
+					hueToRgb(hue + (1 / 3)),
+					hueToRgb(hue),
+					hueToRgb(hue - (1 / 3)),
+				].map(channel => Math.round(channel * 255));
+			},
+			enumerable: false,
+		},
 		hexToAnsi256: {
 			value: hex => styles.rgbToAnsi256(...styles.hexToRgb(hex)),
 			enumerable: false,

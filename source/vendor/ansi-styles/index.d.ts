@@ -200,6 +200,15 @@ export type ConvertColor = {
 	hexToRgb(hex: string): [red: number, green: number, blue: number];
 
 	/**
+	Convert from the HSL color space to the RGB color space.
+
+	@param hue - Hue angle in degrees.
+	@param saturation - Color saturation (`0...100`).
+	@param lightness - Color lightness (`0...100`).
+	*/
+	hslToRgb(hue: number, saturation: number, lightness: number): [red: number, green: number, blue: number];
+
+	/**
 	Convert from the RGB HEX color space to the ANSI 256 color space.
 
 	@param hex - A hexadecimal string containing RGB data.

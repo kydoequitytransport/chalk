@@ -64,6 +64,22 @@ export interface ChalkInstance {
 	rgb: (red: number, green: number, blue: number) => this;
 
 	/**
+	Use HSL values to set text color.
+
+	@param hue - Hue angle in degrees.
+	@param saturation - Color saturation (`0...100`).
+	@param lightness - Color lightness (`0...100`).
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.hsl(120, 100, 50);
+	```
+	*/
+	hsl: (hue: number, saturation: number, lightness: number) => this;
+
+	/**
 	Use HEX value to set text color.
 
 	@param color - Hexadecimal value representing the desired color.
@@ -102,6 +118,22 @@ export interface ChalkInstance {
 	```
 	*/
 	bgRgb: (red: number, green: number, blue: number) => this;
+
+	/**
+	Use HSL values to set background color.
+
+	@param hue - Hue angle in degrees.
+	@param saturation - Color saturation (`0...100`).
+	@param lightness - Color lightness (`0...100`).
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.bgHsl(120, 100, 50);
+	```
+	*/
+	bgHsl: (hue: number, saturation: number, lightness: number) => this;
 
 	/**
 	Use HEX value to set background color.
@@ -144,6 +176,24 @@ export interface ChalkInstance {
 	```
 	*/
 	underlineRgb: (red: number, green: number, blue: number) => this;
+
+	/**
+	Use HSL values to set underline color.
+
+	The underline color is only visible when an underline style is also applied.
+
+	@param hue - Hue angle in degrees.
+	@param saturation - Color saturation (`0...100`).
+	@param lightness - Color lightness (`0...100`).
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.underlineHsl(120, 100, 50).underlineCurly('Hello, world!');
+	```
+	*/
+	underlineHsl: (hue: number, saturation: number, lightness: number) => this;
 
 	/**
 	Use HEX value to set underline color.

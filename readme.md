@@ -84,6 +84,7 @@ DISK: ${chalk.yellow('70%')}
 
 // Use RGB colors in terminal emulators that support it.
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
+log(chalk.hsl(120, 100, 50).bold('HSL green!'));
 log(chalk.hex('#DEADED').bold('Bold gray!'));
 ```
 
@@ -260,20 +261,24 @@ Examples:
 
 - `chalk.hex('#DEADED').underline('Hello, world!')`
 - `chalk.rgb(15, 100, 204).inverse('Hello!')`
+- `chalk.hsl(120, 100, 50).bold('Hello, world!')`
 
 Background versions of these models are prefixed with `bg` and the first letter of the model capitalized (e.g. `hex` for foreground colors and `bgHex` for background colors).
 
 - `chalk.bgHex('#DEADED').underline('Hello, world!')`
 - `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
+- `chalk.bgHsl(120, 100, 50).underline('Hello, world!')`
 
 Underline versions are prefixed with `underline` in the same way (e.g. `hex` for foreground colors and `underlineHex` for underline colors). They only take effect when an underline style is also applied.
 
 - `chalk.underlineHex('#DEADED').underlineCurly('Hello, world!')`
 - `chalk.underlineRgb(15, 100, 204).underline('Hello!')`
+- `chalk.underlineHsl(120, 100, 50).underlineCurly('Hello, world!')`
 
 The following color models can be used:
 
 - [`rgb`](https://en.wikipedia.org/wiki/RGB_color_model) - Example: `chalk.rgb(255, 136, 0).bold('Orange!')`
+- [`hsl`](https://en.wikipedia.org/wiki/HSL_and_HSV) - Example: `chalk.hsl(30, 100, 50).bold('Orange!')`; hue is in degrees and saturation/lightness are percentages.
 - [`hex`](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) - Example: `chalk.hex('#FF8800').bold('Orange!')`
 - [`ansi256`](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) - Example: `chalk.bgAnsi256(194)('Honeydew, more or less')`
 
